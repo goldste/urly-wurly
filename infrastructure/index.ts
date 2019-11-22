@@ -17,7 +17,7 @@ const imageName = process.env.UW_IMAGE_NAME || `gcr.io/${projectName}/${appName}
 
 // Create GCS bucket to store links
 const bucket = new gcp.storage.Bucket(appName, {
-  location: locationName.split('-')[0],
+  location: locationName,
 });
 
 // Create a managed CloudRun service to run the server container
