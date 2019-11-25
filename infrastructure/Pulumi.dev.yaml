@@ -1,0 +1,10 @@
+
+config:
+  gcp:project: 
+  urly-wurly:branch: develop
+  urly-wurly:domain: 
+  urly-wurly:location: europe-west1
+  urly-wurly:owner: 
+  urly-wurly:project_name:
+  urly-wurly:project_number: 
+  urly-wurly:repository: urly-wurly
