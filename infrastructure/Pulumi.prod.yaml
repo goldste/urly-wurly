@@ -1,12 +1,11 @@
 config:
-  gcp:project:
-  urly-wurly:location: us-central1
+  gcp:project:hm-shorturl
+  urly-wurly:location: europe-west6
   urly-wurly:branch: master
-  urly-wurly:repository: urly-wurly
-  urly-wurly:owner: cloudreach
-  urly-wurly:domain:
-  urly-wurly:project_name:
-  urly-wurly:project_number:
-  urly-wurly:verification-record-name:
-  urly-wurly:verification-record-data:
+  urly-wurly:repository: goldste/urly-wurly
+  urly-wurly:domain:hpch.ch
+  urly-wurly:project_name:hm-shorturl
+  urly-wurly:project_number:239853096307
+  urly-wurly:verification-record-name: hpch.ch
+  urly-wurly:verification-record-data: google-site-verification=cha0hlV7U0Bk2r3GYG_8bU_zL0BYyR6FB6d7ZJcgpDU
   urly-wurly:verification-record-type: TXT

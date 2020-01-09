@@ -1,9 +1,9 @@
 config:
-  gcp:project:
-  urly-wurly:location: us-central1
+  gcp:project:hm-shorturl
+  urly-wurly:location: europe-west6
   urly-wurly:branch: develop
-  urly-wurly:repository: urly-wurly
+  urly-wurly:repository: goldste/urly-wurly
   urly-wurly:owner: cloudreach
   urly-wurly:domain:
-  urly-wurly:project_name:
-  urly-wurly:project_number:
+  urly-wurly:project_name:hm-shorturl
+  urly-wurly:project_number:239853096307
