@@ -20,6 +20,12 @@ import (
 	"github.com/mr-tron/base58"
 )
 
+var key string
+
+func init(){
+	key := gcsRead("key")
+}
+
 // struct response forms a JSON response for the servers API.
 type response struct {
 	// Shortened URL (if successful)
@@ -41,8 +47,20 @@ func main() {
 
 // GET & POST handler to shorten URLs
 func shortenHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "https://hotelplan.com")
+	w.Header().Set("Content-Type", "application/json")}
+
+	keys, ok := r.URL.Query()["key"]
+
+        if !ok || len(keys[0]) < 1 {
+		respond(response{"", "Url Param 'key' is missing"}, http.StatusBadRequest, w)
+		return
+	}
+
+	if keys[0] != key {
+                respond(response{"", "Url Param 'key' is invalid"}, http.StatusBadRequest, w)                                                                                                                return
+	}
+
 	if r.Method == http.MethodOptions {
 		return
 	}
@@ -107,6 +125,10 @@ func lengthenHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	short := mux.Vars(r)["id"]
+        if len(short) < 4 || short == "key" {
+		respond(response{"", "unable to find URL!"}, http.StatusBadRequest, w)
+		return
+	}
 	longURL, err := lengthenURL(short)
 	if err != nil {
 		respond(response{"", "unable to find URL!"}, http.StatusBadRequest, w)
