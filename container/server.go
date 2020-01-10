@@ -23,7 +23,7 @@ import (
 var key string
 
 func init(){
-	key := gcsRead("key")
+	key = gcsRead("key")
 }
 
 // struct response forms a JSON response for the servers API.
