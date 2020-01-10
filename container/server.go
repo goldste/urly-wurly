@@ -22,8 +22,8 @@ import (
 
 var key string
 
-func init(){
-	key = gcsRead("key")
+func init() {
+	key, _ = gcsRead("key")
 }
 
 // struct response forms a JSON response for the servers API.
@@ -48,22 +48,24 @@ func main() {
 // GET & POST handler to shorten URLs
 func shortenHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "https://hotelplan.com")
-	w.Header().Set("Content-Type", "application/json")}
+	w.Header().Set("Content-Type", "application/json")
+
+	if r.Method == http.MethodOptions {
+		return
+	}
 
 	keys, ok := r.URL.Query()["key"]
 
-        if !ok || len(keys[0]) < 1 {
+	if !ok || len(keys) < 1 {
 		respond(response{"", "Url Param 'key' is missing"}, http.StatusBadRequest, w)
 		return
 	}
 
 	if keys[0] != key {
-                respond(response{"", "Url Param 'key' is invalid"}, http.StatusBadRequest, w)                                                                                                                return
-	}
-
-	if r.Method == http.MethodOptions {
+		respond(response{"", "Url Param 'key' is missing"}, http.StatusBadRequest, w)
 		return
 	}
+
 	parameters, ok := r.URL.Query()["url"]
 	if !ok || len(parameters[0]) < 1 {
 		parameters, ok = r.URL.Query()["text"]
@@ -72,8 +74,8 @@ func shortenHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-    encodedLongURL := strings.TrimSpace(parameters[0])
-    longURL, err := url.QueryUnescape(encodedLongURL)
+	encodedLongURL := strings.TrimSpace(parameters[0])
+	longURL, err := url.QueryUnescape(encodedLongURL)
 	if err != nil {
 		respond(response{"", "unable to decode URL. was it encoded?"}, http.StatusBadRequest, w)
 		return
@@ -125,7 +127,7 @@ func lengthenHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	short := mux.Vars(r)["id"]
-        if len(short) < 4 || short == "key" {
+	if len(short) < 4 || short == "key" {
 		respond(response{"", "unable to find URL!"}, http.StatusBadRequest, w)
 		return
 	}
